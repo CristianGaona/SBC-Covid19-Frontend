@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
   cards = [];
   pieChart = [];
   //users1: any  =[{  nombre: "Luis", apellido: 'Rojas', correo: "crgaonas24@gmail.com", edad: 20 }]
-  //users: any  =[]
+  users: any  =[]
   
   ELEMENT_DATA: UsersReports[];
   //displayedColumns: string[] = ['nombre', 'apellido', 'correo', 'edad'];
@@ -80,6 +80,7 @@ export class DashboardComponent implements OnInit {
     
 
     this.getListUsers();
+    this.getListUsers2();
     
   }
   public getListUsers(){
@@ -89,4 +90,20 @@ export class DashboardComponent implements OnInit {
     
     
   }
+  public getListUsers2(){
+    let res=this.dashboardService.covid19Reports2().subscribe(
+      (data) => { 
+        this.users = data;
+        console.log(this.users)
+        console.log("hola")
+
+
+
+      });
+    
+    
+  }
+
+
+
 }

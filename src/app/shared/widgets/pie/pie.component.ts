@@ -17,7 +17,7 @@ export class PieComponent implements OnInit {
   users: any  =[]
   Highcharts: typeof Highcharts = Highcharts;
 
-
+  
   graficaPrueba1:Highcharts.Options = {
     chart: {
       zoomType: 'xy'

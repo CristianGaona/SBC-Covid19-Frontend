@@ -15,8 +15,10 @@ export class DashboardService {
   covid19Reports(){
    return this.http.get('https://disease.sh/v3/covid-19/countries/Albania,Andorra,Austria,Belarus,Belgium,Bosnia,Bulgaria,ChannelIslands,Croatia,Czechia,Denmark,Estonia,FaroeIslands,Finland,France,Germany,Gibraltar,Greece,Hungary,Iceland,Ireland,IsleofMan,Italy,Latvia,Liechtenstein,Lithuania,Luxembourg,Macedonia,Malta,Moldova,Monaco,Montenegro,Netherlands,Norway,Poland,Portugal,Romania,Russia,SanMarino,Serbia,Slovakia,Slovenia,Spain,Sweden,Switzerland,UK,Ukraine');
  }
+
+ 
  covid19Reports2(){
-  return this.http.get('https://corona.lmao.ninja/v3/covid-19/countries/peru');
+  return this.http.get('https://disease.sh/v3/covid-19/continents/europe');
 }
 
   users: any = [];
