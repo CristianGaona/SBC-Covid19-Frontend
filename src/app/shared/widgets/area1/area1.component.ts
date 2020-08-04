@@ -12,18 +12,18 @@ export class Area1Component implements OnInit {
   chartOptions: {};
   @Input() data: any = [];
 
-  users: any  =[]
+  users: any = []
   Highcharts: typeof Highcharts = Highcharts;
- // Highcharts = Highcharts;
-  graficaPrueba:Highcharts.Options ={
+  // Highcharts = Highcharts;
+  graficaPrueba: Highcharts.Options = {
     chart: {
       type: 'area'
     },
     title: {
-      text: 'Casos Covid-19'
+      text: 'Países con más casos'
     },
     subtitle: {
-      text: 'Europa'
+      text: 'de Covid-19'
     },
     tooltip: {
       split: true,
@@ -35,59 +35,105 @@ export class Area1Component implements OnInit {
     exporting: {
       enabled: true,
     },
-    xAxis:{
-      categories:[]
+    xAxis: {
+      categories: []
     },
     plotOptions: {
       area: {
-          stacking: 'normal',
-          lineColor: '#666666',
+        stacking: 'normal',
+        lineColor: '#666666',
+        lineWidth: 1,
+        marker: {
           lineWidth: 1,
-          marker: {
-              lineWidth: 1,
-              lineColor: '#666666'
-          }
+          lineColor: '#666666'
+        }
       }
-  },
+    },
     series: [
       {
-         name:'Europa Cases',
-         data: [],
-         type: 'area'
+        name: 'Italy',
+        data: [],
+        type: 'area'
+      }, {
+        name: 'France',
+        data: [],
+        type: 'area'
+      }, {
+        name: 'Russia',
+        data: [],
+        type: 'area'
       }
-      
-           ]
-  
+
+    ]
+
   };
 
-  constructor(protected service:DashboardService ) { }
+  constructor(protected service: DashboardService) { }
 
   ngOnInit() {
-    this.service.covid19Reports()
-    .subscribe(
-      (data) => { // Success
-        this.users = data;
-        const datosGrafica = this.users.map(x => x.cases);
-        const nombre = this.users.map(x  => x.country);
+    this.service.getItaly()
+      .subscribe(
+        (data) => { // Success
+          this.users = data;
+          const datosGrafica = this.users.map(x => Number(x.casos));
+          const nombre = this.users.map(x => x.fecha);
 
-        //Highcharts
-        this.graficaPrueba.series[0]['data'] = datosGrafica;
-        this.graficaPrueba.xAxis['categories'] = nombre;
-        Highcharts.chart('MediosdPPrincipal2', this.graficaPrueba);
+          //Highcharts
+          this.graficaPrueba.series[0]['data'] = datosGrafica;
+          this.graficaPrueba.xAxis['categories'] = nombre;
+          Highcharts.chart('MediosdPPrincipal2', this.graficaPrueba);
 
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
-HC_exporting(Highcharts);
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
 
-setTimeout(() => {
-  window.dispatchEvent(
-    new Event('resize')
-  );
-}, 300);
-    
+
+    this.service.getFrance()
+      .subscribe(
+        (data) => { // Success
+          this.users = data;
+          const datosGrafica = this.users.map(x => Number(x.casos));
+          const nombre = this.users.map(x => x.fecha);
+
+          //Highcharts
+          this.graficaPrueba.series[1]['data'] = datosGrafica;
+          this.graficaPrueba.xAxis['categories'] = nombre;
+          Highcharts.chart('MediosdPPrincipal2', this.graficaPrueba);
+
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+
+    this.service.getRussia()
+      .subscribe(
+        (data) => { // Success
+          this.users = data;
+          const datosGrafica = this.users.map(x => Number(x.casos));
+          const nombre = this.users.map(x => x.fecha);
+
+          //Highcharts
+          this.graficaPrueba.series[2]['data'] = datosGrafica;
+          this.graficaPrueba.xAxis['categories'] = nombre;
+          Highcharts.chart('MediosdPPrincipal2', this.graficaPrueba);
+
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+
+    HC_exporting(Highcharts);
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new Event('resize')
+      );
+    }, 300);
+
   }
 
 }

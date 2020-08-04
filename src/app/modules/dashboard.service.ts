@@ -21,6 +21,19 @@ export class DashboardService {
   return this.http.get('https://disease.sh/v3/covid-19/continents/europe');
 }
 
+
+getItaly() {
+  return this.http.get('http://localhost:9010/Italy');
+}
+
+getFrance() {
+  return this.http.get('http://localhost:9010/France');
+}
+
+getRussia() {
+  return this.http.get('http://localhost:9010/Russia');
+}
+
   users: any = [];
 
   bigChart() {

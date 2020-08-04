@@ -22,14 +22,14 @@ export class AreaComponent implements OnInit {
       type: 'area'
     },
     title: {
-      text: 'Casos Covid-19'
+      text: 'Paises con mayor índice de muertes'
     },
     subtitle: {
       text: 'Europa'
     },
     tooltip: {
       split: true,
-      valueSuffix: ' cases'
+      valueSuffix: ' Muertes'
     },
     credits: {
       enabled: false
@@ -53,7 +53,7 @@ export class AreaComponent implements OnInit {
   },
     series: [
       {
-         name:'Europa Cases',
+         name:'Europa',
          data: [],
          type: 'area'
       }
@@ -69,7 +69,7 @@ export class AreaComponent implements OnInit {
     .subscribe(
       (data) => { // Success
         this.users = data;
-        const datosGrafica = this.users.map(x => x.cases);
+        const datosGrafica = this.users.map(x => x.deaths);
         const nombre = this.users.map(x  => x.country);
 
         //Highcharts
