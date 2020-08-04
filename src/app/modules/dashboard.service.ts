@@ -8,17 +8,15 @@ export class DashboardService {
 
   constructor( protected http: HttpClient) { }
 
-  getUsers() {
-    return this.http.get('https://heroku-demo-cris.herokuapp.com/api/v1/users');
-  }
+ 
   
   covid19Reports(){
-   return this.http.get('https://disease.sh/v3/covid-19/countries/Albania,Andorra,Austria,Belarus,Belgium,Bosnia,Bulgaria,ChannelIslands,Croatia,Czechia,Denmark,Estonia,FaroeIslands,Finland,France,Germany,Gibraltar,Greece,Hungary,Iceland,Ireland,IsleofMan,Italy,Latvia,Liechtenstein,Lithuania,Luxembourg,Macedonia,Malta,Moldova,Monaco,Montenegro,Netherlands,Norway,Poland,Portugal,Romania,Russia,SanMarino,Serbia,Slovakia,Slovenia,Spain,Sweden,Switzerland,UK,Ukraine');
+   return this.http.get('http://localhost:9010/cases');
  }
 
  
  covid19Reports2(){
-  return this.http.get('https://disease.sh/v3/covid-19/continents/europe');
+  return this.http.get('http://localhost:9010/europatotal');
 }
 
 
