@@ -2,13 +2,18 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface UsersReports {
+ /* nombre: string;
+  apellido: string;
+  correo: string;
+  edad: number;*/
+ country: string;
+ cases: number;
+ deaths: number;
+ recovered: number;
+
 }
-const ELEMENT_DATA: PeriodicElement[] = [
+/*const ELEMENT_DATA: PeriodicElement[] = [
   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
   { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
@@ -29,7 +34,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
   { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
   { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-];
+];*/
 
 @Component({
   selector: 'app-dashboard',
@@ -41,11 +46,28 @@ export class DashboardComponent implements OnInit {
   bigChart = [];
   cards = [];
   pieChart = [];
+  //users1: any  =[{  nombre: "Luis", apellido: 'Rojas', correo: "crgaonas24@gmail.com", edad: 20 }]
+  //users: any  =[]
+  
+  ELEMENT_DATA: UsersReports[];
+  //displayedColumns: string[] = ['nombre', 'apellido', 'correo', 'edad'];
+  displayedColumns: string[] = ['position','nombre', 'apellido', 'correo', 'edad'];
+  //datasource = ELEMENT_DATA;
+  dataSource= new MatTableDataSource<UsersReports>(this.ELEMENT_DATA);
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+ /* getListUsers(){
+    this.dashboardService.getUsers()
+    .subscribe(data => ( this.users = data));
+  }*/
+  
+ // displayedColumns: string[] = ['positio', 'name', 'weight', 'symbol'];
+  
+  
+ //dataSource= new MatTableDataSource;
 
+ 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -53,8 +75,18 @@ export class DashboardComponent implements OnInit {
    // this.bigChart = this.dashboardService.bigChart();
     this.cards = this.dashboardService.cards();
     this.pieChart = this.dashboardService.pieChart();
-
+    this.dataSource= new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
-  }
+    
 
+    this.getListUsers();
+    
+  }
+  public getListUsers(){
+    let res=this.dashboardService.covid19Reports();
+
+    res.subscribe(report=>this.dataSource.data=report as UsersReports[])
+    
+    
+  }
 }

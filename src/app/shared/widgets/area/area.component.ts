@@ -53,15 +53,11 @@ export class AreaComponent implements OnInit {
   },
     series: [
       {
-         name:'Ecuador',
+         name:'Europa Cases',
          data: [],
          type: 'area'
-      },
-      {
-        name:'Peru',
-        data: [18, 17, 20, 22, 21, 30, 70, 90, 14, 18,30,45,60],
-        type: 'area'
-     }
+      }
+      
            ]
   };
 
@@ -69,12 +65,12 @@ export class AreaComponent implements OnInit {
   constructor( protected service:DashboardService ) { }
 
   ngOnInit() {
-    this.service.getUsers()
+    this.service.covid19Reports()
     .subscribe(
       (data) => { // Success
         this.users = data;
-        const datosGrafica = this.users.map(x => x.edad);
-        const nombre = this.users.map(x  => x.nombre);
+        const datosGrafica = this.users.map(x => x.cases);
+        const nombre = this.users.map(x  => x.country);
 
         //Highcharts
         this.graficaPrueba.series[0]['data'] = datosGrafica;
